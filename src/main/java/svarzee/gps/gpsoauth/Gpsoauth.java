@@ -183,7 +183,10 @@ public class Gpsoauth {
       String responseBody = response.body().string();
       Try<String> token = util.extractValue(responseBody, "Auth");
       Try<String> expiry = util.extractValue(responseBody, "Expiry");
-      if (token.isFailure() || expiry.isFailure()) throw new TokenRequestFailed();
+      if (token.isFailure()) throw new TokenRequestFailed();
+      if (expiry.isFailure()) {
+        return new AuthToken(token.get());
+      }
       return new AuthToken(token.get(), parseLong(expiry.get()));
     }
   }
