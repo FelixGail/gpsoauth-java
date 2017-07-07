@@ -4,6 +4,11 @@ public class AuthToken {
   private final String token;
   private final long expiry;
 
+  public AuthToken(String token) {
+    this.token = token;
+    this.expiry = -1;
+  }
+
   public AuthToken(String token, long expiry) {
 
     this.token = token;
@@ -14,6 +19,10 @@ public class AuthToken {
     return token;
   }
 
+  /**
+   *
+   * @return expiry or -1 if token does not expire
+   */
   public long getExpiry() {
     return expiry;
   }
